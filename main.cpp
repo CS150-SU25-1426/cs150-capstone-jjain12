@@ -2,11 +2,13 @@
 #include <iomanip>
 
 #include "Cake.h"
+#include "CakeOrderList.h"
 
 using namespace std;
 
 int main() {
-    
+
+    CakeOrderList orderList;
 
     //Preset Cakes:
     Cake chocolateCake("Chocolate", "Chocolate Ganache", "Happy Birthday!", "Raspberry Compote", "Sprinkles", 5, 1);
@@ -26,10 +28,12 @@ int main() {
 		cout << "**                                                                    **\n";
 		cout << "************************************************************************\n";
 		cout << "** Please make a choice from the following options:                   **\n";
-		cout << "** 1)  Order a Signature Cake                                         **\n";
-		cout << "** 2)  Order a Custom Cake                                            **\n";
+		cout << "** 1)  Input a Signature Cake Order                                   **\n";
+		cout << "** 2)  Input a Custom Cake Order                                      **\n";
 		cout << "** 3)  Cancel an order                                                **\n";
-		cout << "** 4)  Exit                                                           **\n";
+        cout << "** 4)  Edit an order                                                  **\n";
+        cout << "** 5)  View all orders                                                **\n";
+		cout << "** 6)  Exit                                                           **\n";
 		cout << "************************************************************************\n";
 		cout << ">> ";
 		
@@ -53,22 +57,22 @@ int main() {
             cin >> cakeChoice;
 
             switch(cakeChoice) {
-                case 1: orderedCake = chocolateCake; break;
-                case 2: orderedCake = vanillaCake; break;
-                case 3: orderedCake = lemonCake; break;
-                case 4: orderedCake = butterscotchCake; break;
-                case 5: orderedCake = pinaColadaCake; break;
-                default: cout << "No cake has been chosen, please try again.\n"; break; 
+                case 1: orderedCake = chocolateCake; orderList.addCakeOrder(orderedCake); break;
+                case 2: orderedCake = vanillaCake; orderList.addCakeOrder(orderedCake); break;
+                case 3: orderedCake = lemonCake; orderList.addCakeOrder(orderedCake); break;
+                case 4: orderedCake = butterscotchCake; orderList.addCakeOrder(orderedCake); break;
+                case 5: orderedCake = pinaColadaCake; orderList.addCakeOrder(orderedCake); break;
+                default: cout << "No cake has been chosen, please try again.\n"; break;
             }
             "Thank you for ordering a Signature Cake!\n";
             cout << "The Order Summary is displayed below: \n";
             cout << orderedCake << endl;
+
             break;
 
         }
 
-        case 2:
-        {
+        case 2:{
             string flavor, icingFlavor, filling, decor, message;
             int size, count;
             Cake customCake(flavor, icingFlavor, message, filling, decor, size, count);
@@ -143,22 +147,72 @@ int main() {
             cout << "\n\nThank you for ordering a Custom Cake!\n";
             cout << "The Order Summary is displayed below: \n";
             cout << customCake << endl;
-            break;
-
             cout << endl;
+            
+            orderList.addCakeOrder(customCake);
             break;
         }
 
-		case 3:
-			//part 2
+		case 3: {
+            int index; 	
+            cout << orderList << endl; 
+            cout << "\n************************************************************************\n";
+            cout << "To cancel an order, please enter the associated order on the inventory.\n";
+            cout << "************************************************************************\n";
+            cout << "\nEnter inventory number (Enter -1 to cancel): ";
+
+            cin >> index;
+            if (index == -1) {
+                break; 
+            } else if (index > orderList.size() || index < -1) {
+                cout << "Invalid order number. Please try again.\n";
+            } else {
+                if (orderList.removeCakeOrder(index - 1)) {
+                    cout << "Order #" << index << " has been successfully cancelled.\n";
+                }
+            }
+            break;
+        }
+
+        case 4: {
+            int index; 	
+            cout << orderList << endl; 
+            cout << "\n************************************************************************\n";
+            cout << "To modify an order, please enter the associated order on the inventory.\n";
+            cout << "************************************************************************\n";
+            cout << "\nEnter inventory number  (-1 to cancel): ";
+
+            cin >> index;
+            if (index == -1) {
+                break; 
+            } else if (index > orderList.size() || index < -1) {
+                cout << "Invalid order number. Please try again.\n";
+            } else {
+                orderList.editCakeOrder(index - 1);
+                cout << "Order #" << index << " has been successfully modified.\n";
+            }
+            break;
+
+        }
+
+        case 5: {
+            cout << "************************************************************************\n";
+            cout << "------------------------Display of all Cake Orders-----------------------\n";
+            cout << orderList << endl;
+            cout << "************************************************************************\n";
+            cout << "Press Enter to continue:";
+            getline(cin, hold);
 			break;
-	
-		case 4:
+        }
+
+		case 6:
 		cout << "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~";	
         cout << "\nThank you for visiting the Mini Cake Bakery!\nWe will have your cake ready soon!\n";
         cout << "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n\n";
 			break;
 		}
 
-	} while (choice != 4);
+	} while (choice != 6);
+
+    return 0;
 }

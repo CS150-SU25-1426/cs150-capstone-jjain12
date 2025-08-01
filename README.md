@@ -5,7 +5,12 @@
 Resources Used:
 - Since I built an application for a shop, I used the structure, and certain formatting elements from Assignment 24, the surfboard shop. Still, I was able to use my own creativity in order to cater to the needs of my cake shop. 
 
-- I also used the CoPilot AI tool to help me with minor edits to access elements from different files and repetitive coding sequences such as creating getter/setter functions and recieving user input. 
+- I also used the CoPilot AI tool to help me with minor edits to access elements from different files and repetitive coding sequences such as creating getter/setter functions and recieving user input. I used ChatGPT to understand if all the "High Level Requirements" were met, but not for help with writing code.
 
 What went well:
 - I made my application pretty simple to use, and was able to format all my "orders" in a neat and organized way.
+- All the menu options work well, and it is easy to add, delete, and modify orders.
+
+What can be improved:
+- I could have added more input validation, however if this is used by a bakery employee, there are less chances of wrong user input. 
+- The display I made is multiline, which I like. However, it is quite different from the convention I've seen in past lessons/projects.
